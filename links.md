@@ -14,7 +14,7 @@
 * __Oracle Database__
 
 * __Git__
-  *[How to change git account in Git bash? - Stack Overflow](https://stackoverflow.com/questions/41689395/how-to-change-git-account-in-git-bash)
+  * [How to change git account in Git bash? - Stack Overflow](https://stackoverflow.com/questions/41689395/how-to-change-git-account-in-git-bash)
 
 ---
 ###### Script:
