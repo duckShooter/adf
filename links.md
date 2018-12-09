@@ -7,6 +7,7 @@
 
 * __JavaEE__
   * [Setting up role based security in tomcat · The Coders Corner](https://www.thecoderscorner.com/team-blog/hosting-servers/17-setting-up-role-based-security-in-tomcat/)
+  * [Learn How to implement filters in a JSP application](https://blog.eduonix.com/java-programming-2/learn-implement-filters-jsp-application/#respond)
 
 * __HTML/CSS__
 
