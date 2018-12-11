@@ -1,6 +1,7 @@
 # Resources & References
 * __Tomcat__
   * [The Tomcat Service for Windows - An Simple Guide | MuleSoft](https://www.mulesoft.com/tcat/tomcat-service)
+  * [tomcat7 - How to set the context path of a web application in Tomcat 7.0 - Stack Overflow](https://stackoverflow.com/questions/7276989/how-to-set-the-context-path-of-a-web-application-in-tomcat-7-0)
 
 * __Eclipse__
   * [Eclipse – How to change web project context root – Mkyong.com](https://www.mkyong.com/eclipse/eclipse-how-to-change-web-project-context-root/)
