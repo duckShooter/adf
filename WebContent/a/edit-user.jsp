@@ -7,15 +7,15 @@
 
 <%@page import="adf.util.SessionControl" %>
 
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
+<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/navbar.jsp"%>
 
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>اضافة حافظة جديدة</h3>
+                <h3>ادارة المستخدمين / تعديل مستخدم </h3>
             </div>
 
             <div class="title_right">
@@ -35,7 +35,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>اضافة حافظة جديدة الى الارشيف</h2>
+                        <h2>تعديل بيانات مستخدم </h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             <li><a href="#" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a></li>
@@ -44,21 +44,43 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <form class="form-horizontal form-label-left" action="add?action=doAddFolder" method="post">
+
+                        <form class="form-horizontal form-label-left" action="users.html" method="post">
+
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">اسم الحافظة : <span
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">الاسم بالكامل : <span
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <input id="name" class="form-control col-md-7 col-xs-12"
                                            data-validate-length-range="6" data-validate-words="2" name="name"
-                                           placeholder="اسم الحافظة" required="required" type="text">
+                                           placeholder="اسم الاسم بالكامل" required="required" type="text">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">اسم المستخدم : <span
+                                        class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="name" class="form-control col-md-7 col-xs-12"
+                                           data-validate-length-range="6" data-validate-words="2" name="name"
+                                           placeholder="اسم المستخدم" required="required" type="text">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">كلمة المرور : <span
+                                        class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input id="name" class="form-control col-md-7 col-xs-12"
+                                           data-validate-length-range="6" data-validate-words="2" name="name"
+                                           placeholder="كلمة المرور" required="required" type="password">
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button id="send" type="submit" class="btn btn-success">ارسال</button>
+                                    <button id="send" type="submit" class="btn btn-success">تعديل</button>
                                 </div>
                             </div>
                         </form>
@@ -69,4 +91,4 @@
     </div>
 </div>
 <!-- /page content -->
-<%@include file="includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

@@ -8,11 +8,10 @@ import java.util.Date;
 public class OutMessage implements Serializable {
 	private int id; //ID in database
 	private int archiveSN; //Serial number from archive
-	private int registerNumber; //The number sent with the message
+	private int recordNumber; //The number sent with the message
 	private String receiver;
 	private Date dateSent;
 	private Timestamp dateAdded;
-	private ArrayList<User> assignedOfficers;
 	private String brief;
 	private int state;
 	private Folder folder;

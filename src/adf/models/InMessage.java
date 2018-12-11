@@ -8,17 +8,13 @@ import java.util.Date;
 public class InMessage implements Serializable {
 	private int id; //ID in database
 	private int archiveSN; //Serial number from archive
-	private int registerNumber; //The number sent with the message
+	private int recordNumber; //The number sent with the message
 	private String sender;
 	private Date dateReceived;
 	private Timestamp dateAdded;
-	private ArrayList<User> assignedOfficers;
-	private String brief;
-	private int state;
+	private ArrayList<User> assignedOfficers; //The officers whom the message is assigned to
 	private Folder folder;
-	private String documentPath;
-	//Private ArrayList<Integer> urges;
-	//private ArrayList<> replies;
-	
-	
+	private String brief; //Concise description of the message content
+	private int state;
+	private String documentPath; //Location on HD
 }

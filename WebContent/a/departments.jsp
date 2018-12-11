@@ -7,8 +7,8 @@
 
 <%@page import="adf.util.SessionControl" %>
 
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
+<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/navbar.jsp"%>
 
 <!-- page content -->
 <div class="right_col" role="main">
@@ -92,4 +92,4 @@
     </div>
 </div>
 <!-- /page content -->
-<%@include file="includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

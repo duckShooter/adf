@@ -5,19 +5,19 @@
 				java.util.HashMap,
 				adf.util.SessionControl" %>
 
-<%
+<%--
 request.setCharacterEncoding("UTF-8");
 response.setCharacterEncoding("UTF-8");
 
 //Authorize the user, bad practice and will use filters later :-(
 Cookie authCookie = SessionControl.acquireCookie("token", request);
 if(authCookie == null)
-	response.sendRedirect("login?error=1");
+	response.sendError(HttpServletResponse.SC_FORBIDDEN);
 else {
 	HttpSession currentSession = 
 		((HashMap<String, HttpSession>)request.getServletContext().getAttribute("sessmgr")).get(authCookie.getValue());
 		System.out.println("LOG: " + currentSession.getAttribute("admin")); //for test purpose
-%>
+--%>
 
 <body class="nav-md">
 <div class="container body">
@@ -33,13 +33,13 @@ else {
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="vendors/images/user.png" alt="..." class="img-circle profile_img">
+                        <img src="../vendors/images/user.png" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                     	<span></span>
 <%--               			<span><%= (String)session.getAttribute("user") %></span> --%>
                         <span>Administrator</span>
-                        <h2><%=((Admin)currentSession.getAttribute("admin")).getRank()%> / <%=((Admin)currentSession.getAttribute("admin")).getFullname()%></h2>
+                        <h2><%=((Admin)session.getAttribute("admin")).getFullname()%></h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -99,4 +99,3 @@ else {
         </div>
         <!-- /top navigation -->
         <!-- /header content -->
- <% } %>

@@ -7,8 +7,8 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@include file="includes/header.jsp" %>
-<%@include file="includes/navbar.jsp" %>
+<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/navbar.jsp"%>
 
 <!-- page content -->
 <div class="right_col" role="main">
@@ -267,4 +267,4 @@
 </div>
 <!-- /page content -->
 
-<%@include file="includes/footer.jsp" %>
+<%@include file="../includes/footer.jsp" %>

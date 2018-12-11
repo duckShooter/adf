@@ -1,13 +1,27 @@
 <%@page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@page import="java.util.Date"%>
+<%@page import="java.util.Date,
+	adf.models.Admin"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
+<%
+	Boolean isLoggedIn = (Boolean)session.getAttribute("isLoggedIn");
+	if(isLoggedIn != null && isLoggedIn) {
+		System.out.println("FROM: Login.jsp -> " + isLoggedIn);
+		response.sendRedirect("a/dashboard");
+	} else {
+		System.out.println("FROM: Login.jsp -> " + isLoggedIn);
+		System.out.println("Failed To Redirect - isLoggedIn: " + isLoggedIn);
+	}
+%>
 <html lang="ar-EG">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" Content="no-cache">
+<meta http-equiv="Pragma" Content="no-cache">
+<meta http-equiv="Expires" Content="0">
 <title>منظومة الارشيف العام | تسجيل الدخول</title>
 <link href="vendors/bootstrap/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -44,7 +58,9 @@
 							class="text-center">مرحبا بكم فى منظومة الارشيف العام برجاء تسجيل الدخول لادارة المنظومة</h4>
 						<div>
 							<input type="text" name="username" class="form-control"
-								placeholder="اسم المستخدم" required="required" />
+								placeholder="اسم المستخدم" required="required" autofocus="autofocus"
+								oninvalid="this.setCustomValidity('من فضلك ادخل اسم المستخدم')"
+								oninput="setCustomValidity('')"/>
 						</div>
 						<div>
 							<input type="password" name="password" class="form-control"

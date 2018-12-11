@@ -7,15 +7,17 @@
 
 <%@page import="adf.util.SessionControl" %>
 
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
+<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/navbar.jsp"%>
+
+
 
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>ادارة مستخدمين المنظومة / اضافة مستخدم جديد</h3>
+                <h3>ادارة مستخدمين المنظومة / تعديل مستخدم </h3>
             </div>
 
             <div class="title_right">
@@ -35,7 +37,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>اضافة مستخدم  داخل الفرع / الشعبة / الرئاسة</h2>
+                        <h2>تعديل بيانات  مستخدم  </h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
                             <li><a href="#" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a></li>
@@ -45,14 +47,24 @@
                     </div>
                     <div class="x_content">
 
-                        <form class="form-horizontal form-label-left" action="add?action=doAddOfficer" method="post">
+                        <%
+							Integer id;
+							if((id = Integer.parseInt(request.getParameter("id"))) != null) {
+								Connection con = DatabaseConnection.getActiveConnection();
+								PreparedStatement stmt = con.prepareStatement("select * from account where account.id = ?");
+								stmt.setInt(1, id);
+								ResultSet resultSet = stmt.executeQuery();
+								if(resultSet.next()) {
+		
+							%>
+                        <form class="form-horizontal form-label-left" action="edit?action=doEditOfficer&id=<%=id%>" method="post">
 
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">درجة / رتبة : <span
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                   <select id="name" class="form-control col-md-7 col-xs-12" required="required" style="padding: 0 15px;" name="rank">
+                                   <select id="name" class="form-control col-md-7 col-xs-12" required="required" style="padding: 0 15px;"" name="rank">
                                        <option value="جندى">جندى</option>
                                        <option value="عريف">عريف</option>
                                        <option value="رقيب">رقيب</option>
@@ -76,9 +88,9 @@
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="fullname" class="form-control col-md-7 col-xs-12"
+                                    <input id="name" class="form-control col-md-7 col-xs-12"
                                            data-validate-length-range="6" data-validate-words="2" name="fullname"
-                                           placeholder="الاسم" required="required" type="text">
+                                           placeholder="الاسم" required="required" type="text" value="<%=resultSet.getString("fullname")%>">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -86,41 +98,41 @@
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="username" class="form-control col-md-7 col-xs-12"
+                                    <input id="name" class="form-control col-md-7 col-xs-12"
                                            data-validate-length-range="6" data-validate-words="2" name="username"
-                                           placeholder="اسم المستخدم" required="required" type="text">
+                                           placeholder="اسم المستخدم" required="required" type="text" value="<%=resultSet.getString("username")%>">
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">كلمة المرور : <span
-                                        class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">كلمة المرور الجديدة : <span
+                                        ></span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input id="password" class="form-control col-md-7 col-xs-12"
+                                    <input id="name" class="form-control col-md-7 col-xs-12"
                                            data-validate-length-range="6" data-validate-words="2" name="password"
-                                           placeholder="كلمة المرور" required="required" type="password">
+                                           placeholder="كلمة المرور" type="password">
                                 </div>
                             </div>
+                            
+                             
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">القسم : <span
                                         class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select id="name" class="form-control col-md-7 col-xs-12" required="required" style="padding: 0 15px;"" name="dept">
-                                    <% Connection con = DatabaseConnection.getActiveConnection();
-                                    	PreparedStatement stmt = con.prepareStatement("Select id, name from Test.dept");
-                                    	ResultSet resultSet = stmt.executeQuery();
-                                    	while(resultSet.next()) {
-                                    %>
-                                       <option value="<%=resultSet.getInt(1)%>"><%=resultSet.getString(2)%></option>
-                                    
-                                    <% } 
-                                    	con.close();
-                                    %>
+                                    <select id="name" class="form-control col-md-7 col-xs-12" required="required" style="padding: 0 15px;" name="dept">
+                                        <% 
+                                    	stmt = con.prepareStatement("Select id, name from Test.dept");
+                                    	ResultSet resultSet1 = stmt.executeQuery();
+                                    	while(resultSet1.next()) {
+                                    	%>
+                                       <option value="<%=resultSet1.getInt(1)%>"><%=resultSet1.getString(2)%>
+                                       </option>
+                                       <% } %>
                                    </select>
                                 </div>
                             </div>
-                            <div class="item form-group">
+                                <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">نوع المستخدم : <span
                                         class="required">*</span>
                                 </label>
@@ -132,10 +144,15 @@
                                     </select>
                                 </div>
                             </div>
+                             <% 			
+                                   }
+								
+                             }%>
+                          
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <button id="send" type="submit" class="btn btn-success">إضافة</button>
+                                    <button id="send" type="submit" class="btn btn-success">تعديل</button>
                                 </div>
                             </div>
                         </form>
@@ -146,4 +163,4 @@
     </div>
 </div>
 <!-- /page content -->
-<%@include file="includes/footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

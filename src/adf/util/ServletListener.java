@@ -3,8 +3,10 @@ import java.util.HashMap;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 
+@WebListener
 public class ServletListener implements ServletContextListener {
 
 	@Override
@@ -12,7 +14,6 @@ public class ServletListener implements ServletContextListener {
 		HashMap<String, HttpSession> sessionManager = new HashMap<>();
 		sce.getServletContext().setAttribute("sessmgr", sessionManager);
 		System.out.println("Server Listener: Entered");
-		sessionManager.put("hello", null);
 	}
 	
 	@Override

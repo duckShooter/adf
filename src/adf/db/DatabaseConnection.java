@@ -21,9 +21,9 @@ public class DatabaseConnection {
 			//Not required since JDK 1.6
 			Class.forName(Database.ORACLE_THIN.getClassName());
 			connection = DriverManager.getConnection(
-					String.format(Database.ORACLE_THIN.getURL(), "oracle-server","1521", "orcl"), //Static information (will be declared as constants later)
-					"test", //Fed as input (in the installation page)
-					"test"); //Fed as input (in the installation page)
+					String.format(Database.ORACLE_THIN.getURL(), "localhost","1521", "orcl"), //Static information (will be declared as constants later)
+					"HR", //Fed as input (in the installation page)
+					"oracle"); //Fed as input (in the installation page)
 			return connection;
 					
 		} catch (ClassNotFoundException | SQLException e) {

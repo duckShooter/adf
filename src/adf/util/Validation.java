@@ -5,12 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,63 +18,59 @@ import org.apache.commons.codec.digest.DigestUtils;
 import adf.db.DatabaseConnection;
 import adf.models.Admin;
 
+@SuppressWarnings("serial")
 @WebServlet(name="validate",
 urlPatterns="/validate")
 public class Validation extends HttpServlet {
 	protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, SQLException {
-		HttpSession session = req.getSession();
-		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/home.jsp");
-		Admin admin = new Admin();
 		req.setCharacterEncoding("UTF-8"); //Recommended
 		resp.setCharacterEncoding("UTF-8"); //Recommended
+		
+		HttpSession session = req.getSession(false);
+		//Invalidate old session before authentication
+		if(session != null) {
+			System.out.println("Old Session Has Been Invalidated.");
+			session.invalidate();
+		}
+		
+		//Create a new session
+		session = req.getSession(true);
+		session.setMaxInactiveInterval(60*60*24*7); //7 Days [Review]
+		
+		
+		Admin admin = new Admin(); //Represents the current user
+		
+		//Retrieve login credentials from login page
 		String username = req.getParameter("username");
 		String password =  DigestUtils.sha1Hex(req.getParameter("password"));
 		
-		/* TEST CODE
-		session.setAttribute("user", username);
-		session.setAttribute("pass", password);
-		System.out.println(username);
-		*/
-		
-		/* PROD CODE */
 		Connection con = DatabaseConnection.getActiveConnection();
-		PreparedStatement stmt = con.prepareStatement("select * from \"TEST\".\"ADMIN\" where USERNAME = ? AND PASSWORD = ?");
+		PreparedStatement stmt = con.prepareStatement("select * from admin where USERNAME = ? AND PASSWORD = ?");
 		stmt.setString(1, username);
 		stmt.setString(2, password);
 		ResultSet res = stmt.executeQuery();
+		System.out.println("FROM:" + Validation.class.getCanonicalName());
+		System.out.println("User:" + username + "  -  SHA-1 HEX: " + password);
 		
-		
+		//Validate login credentials
 		if(!res.next()){ //Check if empty (move the cursor)
 			System.out.println("Resultset is Empty");
-			resp.sendRedirect("login?error=1");
+			resp.sendRedirect("a?error=1");
 		} else {
-			do { //loop over data
-				//Retrieve the data for first row
-				admin.setId(res.getInt(1));
-				admin.setUsername(res.getString(2));
-				admin.setPassword(res.getString(3));
-				admin.setFullname(res.getString(4));
-				admin.setRank(res.getString(9));
-			} while(res.next());
-			con.close();
+			System.out.println("CORRECT CREDENTIALS");
+			admin.setId(res.getInt(1));
+			admin.setUsername(res.getString(2));
+			admin.setPassword(res.getString(3));
+			admin.setFullname(res.getString(4));
+			
+		
 			session.setAttribute("admin", admin);
+			session.setAttribute("isLoggedIn", true);
 			SessionControl.saveSession(req, resp);
-			resp.sendRedirect("dashboard");
+			resp.sendRedirect("a/dashboard");
 		}
 		
-		/*** if(res != null) {
-			while(res.next()) {
-				admin.setId(res.getInt(1));
-				admin.setUsername(res.getString(2));
-				admin.setPassword(res.getString(3));
-			} 
-			con.close();
-			session.setAttribute("admin", admin);
-		} else
-			resp.sendRedirect("login?error=1");  **/
-		
-		//resp.sendRedirect("login?error=0");
-		//requestDispatcher.forward(req, resp);
+		con.close();
 	}
 	
 	@Override
